@@ -1,4 +1,4 @@
-library flutterlayouts;
+library flutter_layouts;
 
 /// A Calculator.
 class Calculator {
