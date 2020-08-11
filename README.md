@@ -1,14 +1,21 @@
 # flutter_layouts [![](https://img.shields.io/badge/pub-latest-brightgreen)](https://pub.dev/packages/flutter_layouts)
 
-Useful & production ready flutter layouts. not as examples, but as package. based on real-world apps 
+> Useful & production ready flutter layouts. not as examples, but as package. based on real-world apps
 
-## Getting Started
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+## Installation
+```yaml
+dependencies:
+  flutter_layouts: latest
+```
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+
+## Layouts List
+- [sticky footer layout](/lib/src/footer) 
+
+
+## Layouts Library
+Layout             |  Preview
+:-------------------------:|:-------------------------:
+[footer](./lib/src/footer) |![](./doc/footer/footer-demo-1.gif)
+
