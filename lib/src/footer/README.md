@@ -90,3 +90,7 @@ class _FooterScreenState extends State<FooterScreen> {
 }
 
 ```
+
+
+## Photo library
+![](../../../doc/footer/footer-static-demo-1.png)
