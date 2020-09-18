@@ -1,3 +1,3 @@
 library flutter_layouts;
 
-export 'src/footer/footer_layout.dart';
+export 'src/layouts.dart';

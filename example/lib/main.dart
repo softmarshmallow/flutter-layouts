@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_layouts_example/screens/bottom_sticky_screen.dart';
 import 'package:flutter_layouts_example/screens/footer_screen.dart';
 
 void main() {
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         FooterScreen.routeName: (c) => FooterScreen(),
+        BottomStickyScreen.routeName: (c) => BottomStickyScreen(),
       },
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -64,4 +66,6 @@ class DemoScreenData {
 
 final List<DemoScreenData> demos = [
   const DemoScreenData(route: FooterScreen.routeName, name: "footer"),
+  const DemoScreenData(
+      route: BottomStickyScreen.routeName, name: "sticky-bottom"),
 ];

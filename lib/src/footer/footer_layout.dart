@@ -1,5 +1,7 @@
+import 'package:flutter_layouts/flutter_layouts.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:math' as math;
+
 
 enum _FooterSlot { footer, body }
 
@@ -20,9 +22,9 @@ class _FooterLayout extends MultiChildLayoutDelegate {
     double footerTop;
 
     if (hasChild(_FooterSlot.footer)) {
-      final double bottomNavigationBarHeight =
+      final double bottomHeight =
           layoutChild(_FooterSlot.footer, fullWidthConstraints).height;
-      footerHeight += bottomNavigationBarHeight;
+      footerHeight += bottomHeight;
       footerTop = math.max(0.0, bottom - footerHeight);
       positionChild(_FooterSlot.footer, Offset(0.0, footerTop));
     }
@@ -33,7 +35,7 @@ class _FooterLayout extends MultiChildLayoutDelegate {
     if (hasChild(_FooterSlot.body)) {
       double bodyMaxHeight = math.max(0.0, contentBottom - contentTop);
 
-      final BoxConstraints bodyConstraints = _BodyBoxConstraints(
+      final BoxConstraints bodyConstraints = BodyBoxConstraints(
         maxWidth: fullWidthConstraints.maxWidth,
         maxHeight: bodyMaxHeight,
         footerHeight: footerHeight,
@@ -133,42 +135,3 @@ class _FooterState extends State<Footer> {
 }
 
 
-
-// Used to communicate the height of the Footer's footer
-//
-// Footer expects a _BodyBoxConstraints to be passed to the _BodyBuilder
-// widget's LayoutBuilder, see _FooterLayout.performLayout(). The BoxConstraints
-// methods that construct new BoxConstraints objects, like copyWith() have not
-// been overridden here because we expect the _BodyBoxConstraintsObject to be
-// passed along unmodified to the LayoutBuilder. If that changes in the future
-// then _BodyBuilder will assert.
-class _BodyBoxConstraints extends BoxConstraints {
-  const _BodyBoxConstraints({
-    double minWidth = 0.0,
-    double maxWidth = double.infinity,
-    double minHeight = 0.0,
-    double maxHeight = double.infinity,
-    @required this.footerHeight,
-  }) : assert(footerHeight != null),
-        assert(footerHeight >= 0),
-        super(minWidth: minWidth, maxWidth: maxWidth, minHeight: minHeight, maxHeight: maxHeight);
-
-  final double footerHeight;
-
-  // RenderObject.layout() will only short-circuit its call to its performLayout
-  // method if the new layout constraints are not == to the current constraints.
-  // If the height of the bottom widgets has changed, even though the constraints'
-  // min and max values have not, we still want performLayout to happen.
-  @override
-  bool operator ==(Object other) {
-    if (super != other)
-      return false;
-    return other is _BodyBoxConstraints
-        && other.footerHeight == footerHeight;
-  }
-
-  @override
-  int get hashCode {
-    return hashValues(super.hashCode, footerHeight);
-  }
-}
