@@ -83,7 +83,7 @@ class BottomSticky extends StatelessWidget {
 }
 */
 
-enum _FooterSlot { footer, body }
+enum _Slots { bottom, damp, body }
 
 class _FooterLayout extends MultiChildLayoutDelegate {
   final EdgeInsets minInsets;
@@ -101,18 +101,31 @@ class _FooterLayout extends MultiChildLayoutDelegate {
     double footerHeight = 0.0;
     double footerTop;
 
-    if (hasChild(_FooterSlot.footer)) {
+
+
+    if (hasChild(_Slots.damp)) {
       final double bottomHeight =
-          layoutChild(_FooterSlot.footer, fullWidthConstraints).height;
+          layoutChild(_Slots.damp, fullWidthConstraints).height;
       footerHeight += bottomHeight;
       footerTop = math.max(0.0, bottom - footerHeight);
-      positionChild(_FooterSlot.footer, Offset(0.0, footerTop));
+      positionChild(_Slots.bottom, Offset(0.0, footerTop));
+      // TODO
     }
+
+
+    if (hasChild(_Slots.bottom)) {
+      final double bottomHeight =
+          layoutChild(_Slots.bottom, fullWidthConstraints).height;
+      footerHeight += bottomHeight;
+      footerTop = math.max(0.0, bottom - footerHeight);
+      positionChild(_Slots.bottom, Offset(0.0, footerTop));
+    }
+
 
     final double contentBottom =
         math.max(0.0, bottom - math.max(minInsets.bottom, footerHeight));
 
-    if (hasChild(_FooterSlot.body)) {
+    if (hasChild(_Slots.body)) {
       double bodyMaxHeight = math.max(0.0, contentBottom - contentTop);
 
       final BoxConstraints bodyConstraints = BodyBoxConstraints(
@@ -120,8 +133,8 @@ class _FooterLayout extends MultiChildLayoutDelegate {
         maxHeight: bodyMaxHeight,
         footerHeight: footerHeight,
       );
-      layoutChild(_FooterSlot.body, bodyConstraints);
-      positionChild(_FooterSlot.body, Offset(0.0, contentTop));
+      layoutChild(_Slots.body, bodyConstraints);
+      positionChild(_Slots.body, Offset(0.0, contentTop));
     }
   }
 
@@ -134,6 +147,8 @@ class _FooterLayout extends MultiChildLayoutDelegate {
 class BottomSticky extends StatefulWidget {
   final Widget body;
   final Widget bottom;
+  final Gradient gradient;
+  final double dampingHeight;
 
   /// the color of fade damping section
   final Color dampingColor;
@@ -147,7 +162,12 @@ class BottomSticky extends StatefulWidget {
   }
 
   const BottomSticky(
-      {Key key, @required this.body, @required this.bottom, this.dampingColor})
+      {Key key,
+      @required this.body,
+      @required this.bottom,
+      this.dampingColor,
+      this.gradient,
+      this.dampingHeight = 24})
       : super(key: key);
 
   @override
@@ -165,23 +185,46 @@ class _BottomStickyState extends State<BottomSticky> {
       addIfNonNull(
         children,
         Container(
-          decoration: BoxDecoration(color: Colors.blue),
+          decoration: BoxDecoration(
+            color: Colors.blue,
+          ),
           child: widget.bottom,
         ),
-        _FooterSlot.footer,
+        _Slots.bottom,
         context,
         removeLeftPadding: false,
-        removeTopPadding: true,
+        removeTopPadding: false,
         removeRightPadding: false,
         removeBottomPadding: false,
       );
     }
 
+    // region damping
+    Widget damping = Container(
+      height: widget.dampingHeight,
+      decoration: BoxDecoration(
+        gradient: widget.gradient,
+      ),
+    );
+    if (widget.body != null) {
+      addIfNonNull(
+        children,
+        damping,
+        _Slots.damp,
+        context,
+        removeLeftPadding: false,
+        removeTopPadding: false,
+        removeRightPadding: false,
+        removeBottomPadding: true,
+      );
+    }
+    // endregion damping
+
     if (widget.body != null) {
       addIfNonNull(
         children,
         widget.body,
-        _FooterSlot.body,
+        _Slots.body,
         context,
         removeLeftPadding: false,
         removeTopPadding: false,
