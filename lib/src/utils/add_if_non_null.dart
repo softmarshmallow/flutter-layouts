@@ -5,10 +5,10 @@ void addIfNonNull(
     Object childId,
     BuildContext context,
     {
-      @required bool removeLeftPadding,
-      @required bool removeTopPadding,
-      @required bool removeRightPadding,
-      @required bool removeBottomPadding,
+      required bool removeLeftPadding,
+      required bool removeTopPadding,
+      required bool removeRightPadding,
+      required bool removeBottomPadding,
       bool removeBottomInset = false,
       bool maintainBottomViewPadding = false,
     }) {

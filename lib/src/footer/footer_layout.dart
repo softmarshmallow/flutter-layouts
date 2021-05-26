@@ -8,7 +8,7 @@ enum _FooterSlot { footer, body }
 class _FooterLayout extends MultiChildLayoutDelegate {
   final EdgeInsets minInsets;
 
-  _FooterLayout({@required this.minInsets});
+  _FooterLayout({required this.minInsets});
 
   @override
   void performLayout(Size size) {
@@ -55,7 +55,7 @@ class Footer extends StatefulWidget {
   final Widget body;
   final Widget footer;
 
-  const Footer({Key key, @required this.body, @required this.footer})
+  const Footer({Key? key, required this.body, required this.footer})
       : super(key: key);
 
   @override
@@ -103,10 +103,10 @@ class _FooterState extends State<Footer> {
     List<LayoutId> children,
     Widget child,
     Object childId, {
-    @required bool removeLeftPadding,
-    @required bool removeTopPadding,
-    @required bool removeRightPadding,
-    @required bool removeBottomPadding,
+    required bool removeLeftPadding,
+    required bool removeTopPadding,
+    required bool removeRightPadding,
+    required bool removeBottomPadding,
     bool removeBottomInset = false,
     bool maintainBottomViewPadding = false,
   }) {

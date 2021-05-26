@@ -88,7 +88,7 @@ enum _Slots { bottom, damp, body }
 class _FooterLayout extends MultiChildLayoutDelegate {
   final EdgeInsets minInsets;
 
-  _FooterLayout({@required this.minInsets});
+  _FooterLayout({required this.minInsets});
 
   @override
   void performLayout(Size size) {
@@ -147,14 +147,14 @@ class _FooterLayout extends MultiChildLayoutDelegate {
 class BottomSticky extends StatefulWidget {
   final Widget body;
   final Widget bottom;
-  final Gradient gradient;
+  final Gradient? gradient;
   final double dampingHeight;
 
   /// the color of fade damping section
-  final Color dampingColor;
+  final Color? dampingColor;
 
   /// gets the default theme's surface color if [dampingColor] is not provided
-  Color getOverrideDampingColor(BuildContext context) {
+  Color? getOverrideDampingColor(BuildContext context) {
     if (dampingColor == null) {
       return Theme.of(context).colorScheme.surface;
     }
@@ -162,9 +162,9 @@ class BottomSticky extends StatefulWidget {
   }
 
   const BottomSticky(
-      {Key key,
-      @required this.body,
-      @required this.bottom,
+      {Key? key,
+      required this.body,
+      required this.bottom,
       this.dampingColor,
       this.gradient,
       this.dampingHeight = 24})
