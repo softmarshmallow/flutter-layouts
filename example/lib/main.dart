@@ -25,9 +25,9 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, this.title}) : super(key: key);
 
-  final String title;
+  final String? title;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget.title!),
       ),
       body: ListView.builder(
         itemBuilder: (c, i) {
@@ -61,7 +61,7 @@ class DemoScreenData {
   final String route;
   final String name;
 
-  const DemoScreenData({@required this.route, @required this.name});
+  const DemoScreenData({required this.route, required this.name});
 }
 
 final List<DemoScreenData> demos = [

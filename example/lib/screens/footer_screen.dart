@@ -4,7 +4,7 @@ import 'package:flutter_layouts/flutter_layouts.dart';
 class FooterScreen extends StatefulWidget {
   static const routeName = "/demo/footer";
 
-  FooterScreen({Key key}) : super(key: key);
+  FooterScreen({Key? key}) : super(key: key);
 
   @override
   _FooterScreenState createState() => _FooterScreenState();
@@ -53,7 +53,7 @@ class _FooterScreenState extends State<FooterScreen> {
       decoration: BoxDecoration(color: Theme.of(context).primaryColor),
       child: FlatButton(
         onPressed: () {},
-        child: Text("Lean more", style: Theme.of(context).textTheme.button.copyWith(
+        child: Text("Lean more", style: Theme.of(context).textTheme.button!.copyWith(
           color: Theme.of(context).colorScheme.onBackground
         ),),
       ),

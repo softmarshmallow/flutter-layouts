@@ -15,7 +15,7 @@ class BodyBoxConstraints extends BoxConstraints {
     double maxWidth = double.infinity,
     double minHeight = 0.0,
     double maxHeight = double.infinity,
-    @required this.footerHeight,
+    required this.footerHeight,
   }) : assert(footerHeight != null),
         assert(footerHeight >= 0),
         super(minWidth: minWidth, maxWidth: maxWidth, minHeight: minHeight, maxHeight: maxHeight);
